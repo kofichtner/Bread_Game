@@ -4,8 +4,10 @@ using UnityEngine.EventSystems;
 
 /* Controls the player. Here we chose our "focus" and where to move. */
 
-[RequireComponent(typeof(PlayerMotor))]
+//[RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour {
+
+/*
 
 	public delegate void OnFocusChanged(Interactable newFocus);
 	public OnFocusChanged onFocusChangedCallback;
@@ -88,4 +90,5 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+*/
 }

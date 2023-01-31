@@ -8,8 +8,8 @@ public class ItemPickup : Interactable {
 	public override void Interact()
 	{
 		base.Interact();
-
 		PickUp();
+
 	}
 
 	// Pick up the item

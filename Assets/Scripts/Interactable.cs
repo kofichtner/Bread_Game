@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 /*	
 	This component is for all objects that the player can
@@ -7,58 +8,48 @@ using UnityEngine.AI;
 	to be used as a base class.
 */
 
-//[RequireComponent(typeof(ColorOnHover))]
 public class Interactable : MonoBehaviour {
+	
+	public LayerMask interactionMask;	// Everything we can interact with
 
-	public float radius = 3f;
-	public Transform interactionTransform;
+	
+ // Update is called once per frame
+ 	void Update () {
 
-	bool isFocus = false;	// Is this interactable currently being focused?
-	Transform player;		// Reference to the player transform
+     	if(Input.GetMouseButtonDown(0)){
 
-	bool hasInteracted = false;	// Have we already interacted with the object?
+			//Debug.Log("test 1");
 
-	void Update ()
-	{
-		if (isFocus)	// If currently being focused
-		{
-			float distance = Vector3.Distance(player.position, interactionTransform.position);
-			// If we haven't already interacted and the player is close enough
-			if (!hasInteracted && distance <= radius)
-			{
-				// Interact with the object
-				hasInteracted = true;
-				Interact();
+			// Shoot out a ray
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+
+			// If we hit
+			 // Cast a ray straight down.
+       	 	//RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+			if (Physics.Raycast(ray, out hit)){
+				Item itemHit = hit.collider.GetComponent<Item>();
 			}
-		}
-	}
+	    	// Cast a ray straight down.
+        	//RaycastHit2D hit2 = Physics2D.Raycast(ray, out hit);
 
-	// Called when the object starts being focused
-	public void OnFocused (Transform playerTransform)
-	{
-		isFocus = true;
-		hasInteracted = false;
-		player = playerTransform;
-    }
+        	// If it hits something...
+        	//if (hit2.collider != null)
+				//{
+				//Debug.Log("hit");
+				//Interact(itemHit);
 
-	// Called when the object is no longer focused
-	public void OnDefocused ()
-	{
-		isFocus = false;
-		hasInteracted = false;
-		player = null;
-	}
+				//}
 
-	// This method is meant to be overwritten
+			Debug.Log("test 2");
+
+     	}
+ }
+
+ 	// This method is meant to be overwritten
 	public virtual void Interact ()
 	{
 		
-	}
-
-	void OnDrawGizmosSelected ()
-	{
-		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere(interactionTransform.position, radius);
 	}
 
 }
