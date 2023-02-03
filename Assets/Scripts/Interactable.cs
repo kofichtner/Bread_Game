@@ -18,30 +18,17 @@ public class Interactable : MonoBehaviour {
 
      	if(Input.GetMouseButtonDown(0)){
 
-			//Debug.Log("test 1");
+            //Get the mouse position on the screen and send a raycast into the game world from that position.
+            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, interactionMask);
 
-			// Shoot out a ray
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
-			// If we hit
-			 // Cast a ray straight down.
-       	 	//RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-			if (Physics.Raycast(ray, out hit)){
-				Item itemHit = hit.collider.GetComponent<Item>();
+            //If something was hit, the RaycastHit2D.collider will not be null.
+            if (hit.collider != null)
+            {
+                Debug.Log(hit.collider.name); //print the item we hit
+				hit.collider.GetComponent<Interactable>().Interact(); //put item in inventory
+				Debug.Log(hit.collider.GetComponent<Interactable>());
 			}
-	    	// Cast a ray straight down.
-        	//RaycastHit2D hit2 = Physics2D.Raycast(ray, out hit);
-
-        	// If it hits something...
-        	//if (hit2.collider != null)
-				//{
-				//Debug.Log("hit");
-				//Interact(itemHit);
-
-				//}
-
-			Debug.Log("test 2");
 
      	}
  }

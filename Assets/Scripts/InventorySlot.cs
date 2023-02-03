@@ -35,12 +35,14 @@ public class InventorySlot : MonoBehaviour {
 	// If the remove button is pressed, this function will be called.
 	public void RemoveItemFromInventory ()
 	{
+		Debug.Log("removing item");
 		Inventory.instance.Remove(item);
 	}
 
 	// Use the item
 	public void UseItem ()
 	{
+		Debug.Log("using item");
 		if (item != null)
 		{
 			item.Use();
