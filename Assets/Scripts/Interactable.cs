@@ -27,7 +27,6 @@ public class Interactable : MonoBehaviour {
             {
                 Debug.Log(hit.collider.name); //print the item we hit
 				hit.collider.GetComponent<Interactable>().Interact(); //put item in inventory
-				Debug.Log(hit.collider.GetComponent<Interactable>());
 			}
 
      	}
