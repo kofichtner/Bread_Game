@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
+	public InventoryUI inventoryUI;
 	#region Singleton
 
 	public static Inventory instance;
