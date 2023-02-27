@@ -9,8 +9,26 @@ public class InventorySlot : MonoBehaviour {
 
 	public Image icon;
 	public Button removeButton;
+	public bool InUseItemFunction = false;
+	public bool onClickStatus = false;
 
 	Item item;	// Current item in the slot
+
+	void Update () {
+
+		if(InUseItemFunction && Input.GetMouseButtonDown(0)){
+			//Item.transform.position = Input.mousePosition;
+			//Item itemPart = GetComponent<Item>();
+			transform.position = Input.mousePosition;
+			Debug.Log("new created");
+			RemoveItemFromInventory ();
+			InUseItemFunction = false;
+
+
+		}
+
+
+	}
 
 	// Add item to the slot
 	public void AddItem (Item newItem)
@@ -23,7 +41,7 @@ public class InventorySlot : MonoBehaviour {
 	}
 
 	// Clear the slot
-	public void ClearSlot ()
+	public virtual void ClearSlot ()
 	{
 		item = null;
 
@@ -42,10 +60,12 @@ public class InventorySlot : MonoBehaviour {
 	// Use the item
 	public void UseItem ()
 	{
+		InUseItemFunction = true;
 		Debug.Log("using item");
 		if (item != null)
 		{
 			item.Use();
+			Debug.Log("UseItemDone");
 		}
 	}
 
