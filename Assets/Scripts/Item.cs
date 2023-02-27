@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 /* The base item class. All items should derive from this. */
 
@@ -15,14 +14,15 @@ public class Item : ScriptableObject {
 	// Called when the item is pressed in the inventory
 	public virtual void Use ()
 	{
-		Debug.Log("use function");
-
+		// Use the item
+		// Something may happen
 	}
 
 	// Call this method to remove the item from inventory
 	public void RemoveFromInventory ()
 	{
 		Inventory.instance.Remove(this);
+		Inventory.instance.inventoryUI.UpdateUI();
 	}
 
 }
