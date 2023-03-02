@@ -13,19 +13,16 @@ public class InventorySlot : MonoBehaviour {
 	public bool InUseItemFunction = false;
 	public bool onClickStatus = false;
 
+
 	Item item;	// Current item in the slot
 
 	void Update () {
 
+		//TODO: need to move this somewhere else since inventory is disabled when we place
 		if(InUseItemFunction && Input.GetMouseButtonDown(0)){
-			//Item.transform.position = Input.mousePosition;
-			//Item itemPart = GetComponent<Item>();
-			transform.position = Input.mousePosition;
-			Debug.Log("new created");
-			RemoveItemFromInventory ();
+			item.Use(Input.mousePosition);
+			RemoveItemFromInventory();
 			InUseItemFunction = false;
-
-
 		}
 
 
@@ -65,7 +62,9 @@ public class InventorySlot : MonoBehaviour {
 		Debug.Log("using item");
 		if (item != null)
 		{
-			item.Use();
+			
+			
+			// Inventory.instance.inventoryUI.Close();
 			Debug.Log("UseItemDone");
 		}
 	}
