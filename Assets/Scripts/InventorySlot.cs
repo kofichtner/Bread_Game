@@ -10,23 +10,11 @@ public class InventorySlot : MonoBehaviour {
 
 	public Image icon;
 	public Button removeButton;
-	public bool InUseItemFunction = false;
 	public bool onClickStatus = false;
 
 
 	Item item;	// Current item in the slot
 
-	void Update () {
-
-		//TODO: need to move this somewhere else since inventory is disabled when we place
-		if(InUseItemFunction && Input.GetMouseButtonDown(0)){
-			item.Use(Input.mousePosition);
-			RemoveItemFromInventory();
-			InUseItemFunction = false;
-		}
-
-
-	}
 
 	// Add item to the slot
 	public void AddItem (Item newItem)
@@ -58,14 +46,16 @@ public class InventorySlot : MonoBehaviour {
 	// Use the item
 	public void UseItem ()
 	{
-		InUseItemFunction = true;
 		Debug.Log("using item");
 		if (item != null)
 		{
-			
-			
-			// Inventory.instance.inventoryUI.Close();
-			Debug.Log("UseItemDone");
+			item.InUseItemFunction = true;
+			item.itemGameObject.SetActive(true);
+			item.itemGameObject.GetComponent<Renderer>().enabled = false;
+
+			RemoveItemFromInventory();
+			Inventory.instance.inventoryUI.Close();
+			Debug.Log(item);
 		}
 	}
 

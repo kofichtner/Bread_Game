@@ -10,12 +10,14 @@ public class Item : ScriptableObject {
 	public bool showInInventory = true;
 
 	public GameObject itemGameObject;
-	
+
+	public bool InUseItemFunction =false;
 
 	public void setGameObject(GameObject g)
 	{
 		this.itemGameObject = g;
 	}
+
 	// Called when the item is pressed in the inventory
 	public virtual void Use (Vector3 mousePosition)
 	{
