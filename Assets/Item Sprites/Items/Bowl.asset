@@ -15,3 +15,6 @@ MonoBehaviour:
   name: Bowl
   icon: {fileID: 21300000, guid: 1a80c56a8965abb4a80fbc4e21e09571, type: 3}
   showInInventory: 1
+  itemGameObject: {fileID: 0}
+  itemCounter: 0
+  InUseItemFunction: 0

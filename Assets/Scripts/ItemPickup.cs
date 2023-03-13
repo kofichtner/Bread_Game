@@ -15,7 +15,8 @@ public class ItemPickup : Interactable {
 	// Pick up the item
 	void PickUp ()
 	{
-		Debug.Log("Picking up " + item.name);
+		item.itemCounter++;
+		Debug.Log("Picking up " + gameObject.name);
 		Inventory.instance.Add(item);	// Add to inventory
 		item.setGameObject(gameObject);
 		gameObject.SetActive(false);

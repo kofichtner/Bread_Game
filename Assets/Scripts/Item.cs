@@ -11,7 +11,11 @@ public class Item : ScriptableObject {
 
 	public GameObject itemGameObject;
 
+	public int itemCounter;
+
 	public bool InUseItemFunction =false;
+	
+	public string itemGroup;
 
 	public void setGameObject(GameObject g)
 	{
@@ -26,8 +30,8 @@ public class Item : ScriptableObject {
 		Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		this.itemGameObject.SetActive(true);
 		this.itemGameObject.transform.position = worldPoint;
-		Debug.Log(this.itemGameObject);
-		Debug.Log(this.itemGameObject.transform.position);
+		//Debug.Log(this.itemGameObject);
+		//Debug.Log(this.itemGameObject.transform.position);
 	}
 
 	// Call this method to remove the item from inventory

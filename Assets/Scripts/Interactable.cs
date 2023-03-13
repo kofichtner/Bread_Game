@@ -25,7 +25,7 @@ public class Interactable : MonoBehaviour {
             //If something was hit, the RaycastHit2D.collider will not be null.
             if (hit.collider != null)
             {
-                Debug.Log(hit.collider.name); //print the item we hit
+                //Debug.Log(hit.collider.name); //print the item we hit
 				hit.collider.GetComponent<Interactable>().Interact(); //put item in inventory
 			}
 
