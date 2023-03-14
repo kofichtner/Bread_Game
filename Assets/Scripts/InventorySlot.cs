@@ -21,7 +21,7 @@ public class InventorySlot : MonoBehaviour {
 	public void AddItem (Item newItem)
 	{
 		item = newItem;
-		itemDuplicateCounter.text = item.itemCounter.ToString();
+		itemDuplicateCounter.text = item.itemGameObjects.Count.ToString();
 		
 		icon.sprite = item.icon;
 		icon.enabled = true;
@@ -47,11 +47,8 @@ public class InventorySlot : MonoBehaviour {
 	public void RemoveItemFromInventory ()
 	{
 		Debug.Log("removing item");
-		item.itemCounter--;
-		if(item.itemCounter==0){
-			itemDuplicateCounter.text = "";
-			Inventory.instance.Remove(item);
-		}
+		//call item.RemoveFromInventory(); which checks game object list before removing
+		item.RemoveFromInventory();
 
 	}
 
@@ -62,8 +59,9 @@ public class InventorySlot : MonoBehaviour {
 		if (item != null)
 		{
 			item.InUseItemFunction = true;
-			item.itemGameObject.SetActive(true);
-			item.itemGameObject.GetComponent<Renderer>().enabled = false;
+			GameObject g = (GameObject)item.itemGameObjects.Peek();
+			g.SetActive(true); //get first game object in list
+			g.GetComponent<Renderer>().enabled = false;
 
 			RemoveItemFromInventory();
 			Inventory.instance.inventoryUI.Close();

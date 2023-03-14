@@ -12,8 +12,6 @@ public class ItemPlace : MonoBehaviour {
 		if(item.InUseItemFunction && Input.GetMouseButtonDown(0)){
 			Debug.Log(item.itemGroup);
 			item.Use(Input.mousePosition);
-            item.itemGameObject.GetComponent<Renderer>().enabled = true;
-			item.InUseItemFunction = false;
 		}
 
 

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 /* The base item class. All items should derive from this. */
 
@@ -9,9 +11,8 @@ public class Item : ScriptableObject {
 	public Sprite icon = null;				// Item icon
 	public bool showInInventory = true;
 
-	public GameObject itemGameObject;
-
-	public int itemCounter;
+	public Queue itemGameObjects= new Queue(); 
+	
 
 	public bool InUseItemFunction =false;
 	
@@ -19,7 +20,9 @@ public class Item : ScriptableObject {
 
 	public void setGameObject(GameObject g)
 	{
-		this.itemGameObject = g;
+
+		itemGameObjects.Enqueue(g);
+		
 	}
 
 	// Called when the item is pressed in the inventory
@@ -28,17 +31,24 @@ public class Item : ScriptableObject {
 		// Use the item
 		// Something may happen
 		Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		this.itemGameObject.SetActive(true);
-		this.itemGameObject.transform.position = worldPoint;
-		//Debug.Log(this.itemGameObject);
-		//Debug.Log(this.itemGameObject.transform.position);
+		GameObject g = (GameObject)itemGameObjects.Peek();
+		g.SetActive(true); //Dequeue first game object in list
+		g.transform.position = worldPoint;
+		g.GetComponent<Renderer>().enabled = true;
+		this.InUseItemFunction = false;
+
 	}
 
 	// Call this method to remove the item from inventory
 	public void RemoveFromInventory ()
 	{
-		Inventory.instance.Remove(this);
-		Inventory.instance.inventoryUI.UpdateUI();
+		////Dequeue first game object in list
+		//only remove from inventory if last one
+		this.itemGameObjects.Dequeue();
+		if(itemGameObjects.Count == 0){
+			Inventory.instance.Remove(this);
+			Inventory.instance.inventoryUI.UpdateUI();
+		}
 	}
 
 }
