@@ -8,12 +8,9 @@ public class ItemPlace : MonoBehaviour {
 
     void Update () {
 
-		//TODO: need to move this somewhere else since inventory is disabled when we place
 		if(item.InUseItemFunction && Input.GetMouseButtonDown(0)){
-			Debug.Log(item.itemGroup);
 			item.Use(Input.mousePosition);
 		}
-
 
 	}
 

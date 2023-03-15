@@ -35,8 +35,6 @@ public class Inventory : MonoBehaviour {
 
 			if(!items.Contains(item)){
 				items.Add (item);
-
-				Debug.Log(items);
 			}
 
 			if (onItemChangedCallback != null)

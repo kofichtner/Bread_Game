@@ -17,18 +17,21 @@ public class Interactable : MonoBehaviour {
  	void Update () {
 
      	if(Input.GetMouseButtonDown(0)){
-
             //Get the mouse position on the screen and send a raycast into the game world from that position.
             Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero, interactionMask);
-
+			
             //If something was hit, the RaycastHit2D.collider will not be null.
             if (hit.collider != null)
             {
-                //Debug.Log(hit.collider.name); //print the item we hit
-				hit.collider.GetComponent<Interactable>().Interact(); //put item in inventory
-			}
+				if((int)hit.collider.gameObject.layer == LayerMask.NameToLayer("Item")){
+					// Debug.Log((int)hit.collider.gameObject.layer);
+                	// Debug.Log(hit.collider.name); //print the item we hit
+					hit.collider.GetComponent<Interactable>().Interact(); //put item in inventory
+				}
+				//TODO add else if interactionMask == door, then open minimap...
 
+			}
      	}
  }
 

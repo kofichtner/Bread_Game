@@ -16,13 +16,11 @@ public class Item : ScriptableObject {
 
 	public bool InUseItemFunction =false;
 	
-	public string itemGroup;
-
 	public void setGameObject(GameObject g)
 	{
 
 		itemGameObjects.Enqueue(g);
-		
+		Debug.Log("setGameObject called "+itemGameObjects.Count);
 	}
 
 	// Called when the item is pressed in the inventory
@@ -30,19 +28,24 @@ public class Item : ScriptableObject {
 	{
 		// Use the item
 		// Something may happen
+		Debug.Log("Item Use Function Called");
+
 		Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		GameObject g = (GameObject)itemGameObjects.Peek();
-		g.SetActive(true); //Dequeue first game object in list
+		g.SetActive(true); 
 		g.transform.position = worldPoint;
 		g.GetComponent<Renderer>().enabled = true;
 		this.InUseItemFunction = false;
+
+		//Dequeue here because we cannot call RemoveFromInventory since inventory is closed
+		this.itemGameObjects.Dequeue(); 
 
 	}
 
 	// Call this method to remove the item from inventory
 	public void RemoveFromInventory ()
 	{
-		////Dequeue first game object in list
+		//Dequeue first game object in list
 		//only remove from inventory if last one
 		this.itemGameObjects.Dequeue();
 		if(itemGameObjects.Count == 0){

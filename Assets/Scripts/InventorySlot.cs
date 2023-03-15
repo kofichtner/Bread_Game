@@ -20,6 +20,7 @@ public class InventorySlot : MonoBehaviour {
 	// Add item to the slot
 	public void AddItem (Item newItem)
 	{
+		Debug.Log("AddItem called");
 		item = newItem;
 		itemDuplicateCounter.text = item.itemGameObjects.Count.ToString();
 		
@@ -46,8 +47,11 @@ public class InventorySlot : MonoBehaviour {
 	// If the remove button is pressed, this function will be called.
 	public void RemoveItemFromInventory ()
 	{
-		Debug.Log("removing item");
-		//call item.RemoveFromInventory(); which checks game object list before removing
+		//Update displayed item number if it is not fully removed
+		if(item.itemGameObjects.Count > 1){
+			itemDuplicateCounter.text = (item.itemGameObjects.Count-1).ToString();
+		}
+
 		item.RemoveFromInventory();
 
 	}
@@ -55,15 +59,21 @@ public class InventorySlot : MonoBehaviour {
 	// Use the item
 	public void UseItem ()
 	{
-		Debug.Log("using item");
+		
 		if (item != null)
 		{
+			Debug.Log("UseItem called");
 			item.InUseItemFunction = true;
 			GameObject g = (GameObject)item.itemGameObjects.Peek();
-			g.SetActive(true); //get first game object in list
+			g.SetActive(true); 
 			g.GetComponent<Renderer>().enabled = false;
+			
+			//remove item before closing inventory if count will be 0 after placed
+			if(item.itemGameObjects.Count == 1){
+				Inventory.instance.Remove(item);
+				Inventory.instance.inventoryUI.UpdateUI();
+			}
 
-			RemoveItemFromInventory();
 			Inventory.instance.inventoryUI.Close();
 		}
 	}
