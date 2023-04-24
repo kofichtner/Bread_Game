@@ -15,3 +15,6 @@ MonoBehaviour:
   name: Blueberries
   icon: {fileID: 21300000, guid: 03213a06b53466d4b8d6a75c5141583c, type: 3}
   showInInventory: 1
+  itemGameObject: {fileID: 0}
+  itemCounter: 0
+  InUseItemFunction: 0
