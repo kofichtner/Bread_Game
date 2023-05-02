@@ -12,7 +12,12 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     Vector2 movement;
+    public VectorValue startingPosition;
 
+    void Start(){
+        transform.position = startingPosition.initialValue;
+        Debug.Log(startingPosition.initialValue);
+    }
 
     // Update is called once per frame
     void Update()
@@ -27,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         
 
